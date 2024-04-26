@@ -1,20 +1,15 @@
-N, M = map(int, input().split())
+def main():
+    N, Y = map(int, input().split())
 
-count = 0
-
-for i in range(N):
-    money = M
-    x = money // 10000
-    money = money % 10000
-
-    y = money // 5000
-    money = money % 5000
-
-    z = money // 1000
-    money = money % 1000
-
-
-if x + y + z < N and money == 0:
-    print(str(x) + " " + str(y) + " " + str(z))
-else:
+    # 10000円、5000円、1000円札で全探索
+    for x in range(N + 1):  # 10000円札の枚数x
+        for y in range(N - x + 1):  # 5000円札の枚数y、残りの枚数から計算
+            z = N - x - y  # 1000円札の枚数z
+            if 10000 * x + 5000 * y + 1000 * z == Y:
+                print(x, y, z)
+                return  # 正しい組み合わせが見つかった場合、出力して終了
+    # どの組み合わせも条件を満たさなかった場合
     print("-1 -1 -1")
+
+if __name__ == "__main__":
+    main()
